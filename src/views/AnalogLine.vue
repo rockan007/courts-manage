@@ -19,7 +19,7 @@
                 <div class="close-icon align-self-right" v-on:click.stop="cancelDia">X</div>
               </div>
               <div class="dia-body flex-grow-1 d-flex flex-wrap">
-                  <meter-item v-for="m in 9" :key="m" class="col-4"></meter-item>
+                  <meter-item v-for="m in 9" :type="getRandomType()" :key="m" class="col-4"></meter-item>
               </div>
             </div>
         </div>
@@ -60,6 +60,9 @@ export default {
     }
   },
   methods: {
+    getRandomType:function(){
+      return parseInt(Math.round(Math.random()*3));
+    },
     getRandomBottom: function(no) {
       let dianYa = 0;
       let dianLiu = 0;
