@@ -10,16 +10,28 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="">开始时间</span>
                   </div>
-                  <input type="date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                  <input type="date" class="form-control" v-model="startLLDate">
                 </div>
                  <div class="input-group mb-3 col-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="">结束时间</span>
                   </div>
-                  <input type="date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                  <input type="date" class="form-control" v-model="endLLDate">
                 </div>
             </div>
-            <div id="lineLoss-echarts" class="lineLoss-echarts flex-grow-1"></div>
+            <div  class="lineLoss-echarts flex-grow-1 d-flex align-items-stretch">
+              <div class="col-6 d-flex flex-column justify-items-center align-items-stretch align-items-center border border-info">
+                  <div style="color:white;font-size:36px;">拓扑图</div>
+                  <img class="flex-grow-1"  style="height:0;" src="http://wx.dianliangliang.com/sucai/top-graph.0ec46f6d.png"  alt="">
+              </div>
+              <div  class="flex-grow-1 d-flex flex-column">
+                  <div id="lineLoss-echarts" style="height:0;" class="flex-grow-1 border border-info"></div>
+                  <div id="" style="height:0" class="flex-grow-1 d-flex align-items-stretch">
+                      <div id="line-1" style="width:0;" class="flex-grow-1 border border-info"></div>
+                      <div id="line-2" style="width:0;" class="flex-grow-1 border border-info"></div>
+                  </div>
+              </div>
+            </div>
         </div>
     </div>
 </template>
@@ -29,29 +41,70 @@ export default {
   name: "line-loss",
   data: function() {
     return {
-      lineCharts: ""
+      startLLDate:'2018-07-16',
+      endLLDate:'20180-07-24',
+      lineCharts: "",
+      line1Charts: "",
+      line2Charts: "",
+      line1: "",
+      line: "",
+      lineData: {
+        title: "总线路",
+        data: [
+          { value: 3500, name: "实际用电量" },
+          { value: 300, name: "线损电量" }
+        ]
+      },
+      line1Data: {
+        title: "线路1",
+        data: [
+          { value: 2000, name: "实际用电量" },
+          { value: 200, name: "线损电量" }
+        ]
+      },
+      line2Data: {
+        title: "线路2",
+        data: [
+          { value: 1500, name: "实际用电量" },
+          { value: 100, name: "线损电量" }
+        ]
+      }
     };
   },
   mounted: function() {
-    this.initCharts();
+    this.initCharts(this.lineCharts, "lineLoss-echarts", this.lineData);
+    this.initCharts(this.line1Charts, "line-1", this.line1Data);
+    this.initCharts(this.line2Charts, "line-2", this.line2Data);
   },
   methods: {
-    initCharts: function() {
-      this.lineCharts = echarts.init(
-        document.getElementById("lineLoss-echarts"),
-        "light"
-      );
-      this.setOptions();
+    startLLDate:function(newVal){
+
     },
-    setOptions: function(optionData) {
+    initCharts: function(charts, id, optionData) {
+      charts = echarts.init(document.getElementById(id), "light");
+      this.setOptions(charts, optionData);
+    },
+    setOptions: function(charts, optionData) {
       let option = {
+        title: {
+          text: optionData.title,
+          x: "center",
+          textStyle: {
+            //标题内容的样式
+            color: "#fff", //京东红
+            fontStyle: "normal", //主标题文字字体风格，默认normal，有italic(斜体),oblique(斜体)
+            fontWeight: "lighter", //可选normal(正常)，bold(加粗)，bolder(加粗)，lighter(变细)，100|200|300|400|500...
+            fontFamily: "san-serif", //主题文字字体，默认微软雅黑
+            fontSize: 18 //主题文字字体大小，默认为18px
+          }
+        },
         tooltip: {
           trigger: "item",
           formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
         legend: {
           orient: "vertical",
-          left: "left",
+          right: "right",
           data: ["实际用电量", "线损电量"],
           textStyle: {
             color: "rgba(255, 255, 255, 0.8)"
@@ -63,10 +116,7 @@ export default {
             type: "pie",
             radius: "70%",
             center: ["50%", "60%"],
-            data: [
-              { value: 335, name: "实际用电量" },
-              { value: 110, name: "线损电量" }
-            ],
+            data: optionData.data,
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
@@ -79,7 +129,7 @@ export default {
       };
 
       // 使用刚指定的配置项和数据显示图表。
-      this.lineCharts.setOption(option);
+      charts.setOption(option);
     }
   }
 };
@@ -92,10 +142,8 @@ export default {
   font-size: 24px;
 }
 .lineLoss-body {
-  margin: 100px 40px 70px 110px;
+  margin: 60px 30px 60px 100px;
 }
 .lineLoss-echarts {
-  margin:0 20%;
-  padding: 10px 0;
 }
 </style>

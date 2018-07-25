@@ -1,7 +1,7 @@
 <template>
     <div class="left-nav-container">
         <court-nav v-for="(courtName,index) in courts" v-bind:key="index" 
-        v-bind:court="{name:courtName,order:index}" v-bind:activeCourtOrder='activeOrder.order'
+        v-bind:court="{name:courtName,order:index-1}" v-bind:activeCourtOrder='activeOrder.order'
         v-on:selectCourtOrder="getSelectOrder"></court-nav>
     </div>
 </template>
@@ -15,10 +15,11 @@ export default {
   data: function() {
     return {
       courts: [
+        "首页",
         "银座好望角",
         "何庄一号",
         "何庄二号",
-        "千玉铭城",
+        "天玉铭城一号",
         "高地一号",
         "待加入",
         "待加入"
@@ -39,7 +40,6 @@ export default {
   },
   methods: {
     getSelectOrder: function(order) {
-      console.log("获取的当前order:" + JSON.stringify(order));
       this.activeOrder = order;
     }
   }

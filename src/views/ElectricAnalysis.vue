@@ -107,7 +107,59 @@ export default {
       selectLine: {},
       selectMeter: {},
       myChart: "",
-      period:0
+      period: 0,
+      dayData: {
+        xLine: [
+          "0:00",
+          "2:00",
+          "4:00",
+          "6:00",
+          "8:00",
+          "10:00",
+          "12:00",
+          "14:00",
+          "16:00",
+          "18:00",
+          "20:00",
+          "22:00",
+          "24:00"
+        ],
+        yLine: [100, 80, 90, 70, 150, 200, 150, 251, 340, 360, 380, 270, 200]
+      },
+      weekData: {
+        xLine: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+        yLine: [800, 700, 350, 600, 420, 790, 900]
+      },
+      monthData: {
+        xLine: [
+          "一月",
+          "二月",
+          "三月",
+          "四月",
+          "五月",
+          "六月",
+          "七月",
+          "八月",
+          "九月",
+          "十月",
+          "十一月",
+          "十二月"
+        ],
+        yLine: [
+          5000,
+          5200,
+          4000,
+          3000,
+          2600,
+          2900,
+          3600,
+          4700,
+          3600,
+          3200,
+          3800,
+          4200
+        ]
+      }
     };
   },
   mounted: function() {
@@ -124,19 +176,39 @@ export default {
     },
     selectMeterIndex: function() {}
   },
+  watch: {
+    period: function(newVal) {
+      let optionData = "";
+      switch (parseInt(newVal)) {
+        case 0:
+          optionData = this.dayData;
+          break;
+        case 1:
+          optionData = this.weekData;
+          break;
+        case 2:
+          optionData = this.monthData;
+          break;
+        default:
+          optionData = this.dayData;
+          break;
+      }
+      this.setOptions(optionData);
+    }
+  },
   methods: {
     initCharts: function() {
       this.myChart = echarts.init(
         document.getElementById("echarts-container"),
         "light"
       );
-      this.setOptions();
+      this.setOptions(this.dayData);
     },
     setOptions: function(optionData) {
       let option = {
         xAxis: {
           type: "category",
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          data: optionData.xLine,
           axisLine: {
             lineStyle: {
               color: "#56fdff" //坐标轴线颜色
@@ -153,7 +225,7 @@ export default {
         },
         series: [
           {
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            data: optionData.yLine,
             type: "line"
           }
         ]
@@ -171,18 +243,19 @@ export default {
 .analysis-header {
   font-size: 24px;
 }
-.select-lines,.select-meters{
+.select-lines,
+.select-meters {
   background-color: transparent;
   color: white;
 }
-option{
+option {
   background-color: rgb(0, 0, 53);
 }
 .echarts-container {
   min-height: 500px;
 }
 .analysis-body {
-  margin: 100px 40px 70px 110px;
+  margin: 60px 30px 60px 100px;
 }
 .chose-period {
   color: #56fdff;

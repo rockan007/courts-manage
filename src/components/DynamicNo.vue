@@ -1,7 +1,7 @@
 <template>
     <div class="dynamic-no">
         <div v-for="(dynamicNo,key) in dynamicItem" v-bind:key="key">
-            <div>{{key}}:{{(parseFloat(dynamicNo)+randomNo).toFixed(2)}}{{key=="电压"?"V":"A"}}</div>
+            <div>{{key}}:{{dynamicNo|getDymnicNo(randomNo)}}{{key=="电压"?"V":"A"}}</div>
         </div>
     </div>
 </template>
@@ -26,8 +26,17 @@ export default {
   },
   watch: {
     randomNo: function(newVal) {
-      console.log("新值：" + newVal);
+      // console.log("新值：" + newVal);
       setTimeout(this.getRandomNo, 1000);
+    }
+  },
+  filters: {
+    getDymnicNo: function(no,randomNo) {
+      console.log("获取的随机数"+randomNo)
+      if (no == 0) {
+        return 0;
+      }
+      return (parseFloat(no) + randomNo).toFixed(2);
     }
   },
   methods: {

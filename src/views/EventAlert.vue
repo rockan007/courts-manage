@@ -23,14 +23,26 @@
                 <tr>
                   <th scope="row">2</th>
                   <td>故障警报</td>
-                  <td>三项不平衡</td>
-                  <td>2018-07-20 12:00</td>
+                  <td>三相不平衡</td>
+                  <td>2018-07-20 12:00:53</td>
                 </tr>
                 <tr>
                   <th scope="row">3</th>
                   <td>故障警报</td>
                   <td>母排温度过高</td>
-                  <td>2018-07-19 12:00</td>
+                  <td>2018-07-19 12:12:00</td>
+                </tr>
+                <tr>
+                  <th scope="row">4</th>
+                  <td>故障警报</td>
+                  <td>表箱异常打开</td>
+                  <td>2018-07-18 11:15:00</td>
+                </tr>
+                <tr>
+                  <th scope="row">5</th>
+                  <td>故障警报</td>
+                  <td>用户侧断电</td>
+                  <td>2018-07-19 12:00:53</td>
                 </tr>
               </tbody>
             </table>
@@ -50,6 +62,6 @@ export default {
   font-size: 24px;
 }
 .eventAlert-body{
-  margin: 100px 40px 70px 110px;
+  margin: 60px 30px 60px 100px;
 }
 </style>

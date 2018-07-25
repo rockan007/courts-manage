@@ -1,7 +1,7 @@
 <template>
     <div class="counrt-container d-flex flex-column aligin-items-center justify-content-center">
         <div class="court-name" v-bind:class="{'active':court.order==activeCourtOrder}" v-on:click="emitOrder">{{court.name}}</div>
-        <div class="court-details-container" v-show="court.order==activeCourtOrder">
+        <div class="court-details-container" v-show="(court.order==activeCourtOrder)&&court.order>=0">
             <div class="detail-container" v-for="(item,index) in list" v-bind:key="index" v-on:click="getActiveDetail(index)" v-bind:class='{"active":index==activeIndex}'>
                 {{item}}
             </div>
@@ -37,7 +37,6 @@ export default {
   },
   methods: {
     emitOrder: function() {
-      console.log("当前选中的Order:" + this.court.order);
       this.$emit("selectCourtOrder", {
         order: this.court.order,
         item: this.activeIndex

@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="app-container d-flex flex-column">
-    <div class="app-header">
+    <div class="app-header" v-on:click="routerToRoot()">
 
     </div>
     <div class="app-body flex-grow-1 d-flex align-items-stretch">
@@ -27,7 +27,6 @@ export default {
   created: function() {},
   mounted: function() {
     this.bodySize = this.getBodySize();
-    console.log("this bodySize:" + JSON.stringify(this.bodySize));
   },
   watch: {
     bodySize: {
@@ -39,7 +38,6 @@ export default {
         }
         document.querySelector(".app-body").style.minHeight =
           newVal.watch * (1 / longWidth);
-        console.log(newVal.width / newVal.height);
       },
       deep: true
     },
@@ -51,9 +49,13 @@ export default {
     }
   },
   methods: {
+    routerToRoot:function(){
+      this.$router.push('/')
+    },
     routerToDetail: function() {
       if (this.selectOrder.order == -1) {
         this.$router.push("/");
+        return;
       }
       switch (this.selectOrder.item) {
         case 0:
@@ -104,7 +106,7 @@ export default {
       let appBody = document.querySelector(".app-body");
       return {
         width: appBody.clientWidth,
-        height: appBody.clientHeight - 95
+        height: appBody.clientHeight
       };
     },
     getSelectOrder: function(order) {
@@ -132,9 +134,9 @@ export default {
   background-color: rgb(0, 0, 21);
 }
 .app-header {
-  min-height: 95px;
+  min-height: 150px;
 }
 .app-body {
-  margin: 80px 100px;
+  margin: 25px 100px 80px;
 }
 </style>

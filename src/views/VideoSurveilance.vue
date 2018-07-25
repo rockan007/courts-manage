@@ -7,11 +7,11 @@
               {{video.name}}
             </div>
         </div>
-        <div class="videoes-body flex-grow-1">
-            <img v-if="activeVideoIndex==0" class="video-image" src="../assets/imgs/1.png" alt="">
-            <img v-else-if="activeVideoIndex==1" class="video-image" src="../assets/imgs/2.png" alt="">
-            <img v-else-if="activeVideoIndex==2" class="video-image" src="../assets/imgs/3.png" alt="">
-            <img v-else class="video-image" src="../assets/imgs/4.png" alt="">
+        <div class="videoes-body  flex-grow-1 d-flex justify-content-center align-items-center">
+            <img v-if="activeVideoIndex==0" class="video-image" src="http://wx.dianliangliang.com/sucai/1.2473581c.png" alt="">
+            <img v-else-if="activeVideoIndex==1" class="video-image" src="http://wx.dianliangliang.com/sucai/2.fd59d2ea.png" alt="">
+            <img v-else-if="activeVideoIndex==2" class="video-image" src="http://wx.dianliangliang.com/sucai/3.0a4812b3.png" alt="">
+            <img v-else class="video-image" src="http://wx.dianliangliang.com/sucai/4.d3d25328.png" alt="">
         </div>
     </div>
 </template>
@@ -21,10 +21,10 @@ export default {
   data: function() {
     return {
       videoes: [
-        { name: "监控1", url: "../assets/imgs/1.png" },
-        { name: "监控2", url: "../assets/imgs/2.png" },
-        { name: "监控3", url: "../assets/imgs/3.png" },
-        { name: "监控4", url: "../assets/imgs/4.png" }
+        { name: "监控1", url: "http://wx.dianliangliang.com/sucai/1.2473581c.png" },
+        { name: "监控2", url: "http://wx.dianliangliang.com/sucai/2.fd59d2ea.png" },
+        { name: "监控3", url: "http://wx.dianliangliang.com/sucai/3.0a4812b3.png" },
+        { name: "监控4", url: "http://wx.dianliangliang.com/sucai/4.d3d25328.png" }
       ],
       activeVideoIndex: 0
     };
@@ -53,7 +53,7 @@ export default {
   background-image: url(../assets/imgs/horizonal-selected.png);
 }
 .videoes-body {
-  margin: 100px 40px 70px 110px;
+  margin: 60px 30px 60px 100px;
 }
 .video-image {
   height: 100%;
