@@ -2,7 +2,8 @@
     <div class="counrt-container d-flex flex-column aligin-items-center justify-content-center">
         <div class="court-name" v-bind:class="{'active':court.order==activeCourtOrder}" v-on:click="emitOrder">{{court.name}}</div>
         <div class="court-details-container" v-show="(court.order==activeCourtOrder)&&court.order>=0">
-            <div class="detail-container" v-for="(item,index) in list" v-bind:key="index" v-on:click="getActiveDetail(index)" v-bind:class='{"active":index==activeIndex}'>
+            <div  class="detail-container" v-for="(item,index) in list" v-bind:key="index" v-if="(index==1&&court.order==1)||index!=1"
+             v-on:click="getActiveDetail(index)" v-bind:class='{"active":index==activeIndex}'>
                 {{item}}
             </div>
         </div>
