@@ -49,8 +49,8 @@ export default {
     }
   },
   methods: {
-    routerToRoot:function(){
-      this.$router.push('/')
+    routerToRoot: function() {
+      this.selectOrder.order = -1;
     },
     routerToDetail: function() {
       if (this.selectOrder.order == -1) {
@@ -68,7 +68,7 @@ export default {
           break;
         case 1:
           this.$router.push({
-            name: "videoes",
+            name: "plan-graph",
             params: {
               id: this.selectOrder.order
             }
@@ -76,7 +76,7 @@ export default {
           break;
         case 2:
           this.$router.push({
-            name: "eletric-anys",
+            name: "videoes",
             params: {
               id: this.selectOrder.order
             }
@@ -84,13 +84,21 @@ export default {
           break;
         case 3:
           this.$router.push({
-            name: "line-loss",
+            name: "eletric-anys",
             params: {
               id: this.selectOrder.order
             }
           });
           break;
         case 4:
+          this.$router.push({
+            name: "line-loss",
+            params: {
+              id: this.selectOrder.order
+            }
+          });
+          break;
+        case 5:
           this.$router.push({
             name: "event-alert",
             params: {

@@ -1,6 +1,6 @@
 <template>
     <div class="back-no d-flex flex-column justify-content-between" v-on:click='emitDiaShow()'>
-        <div class="back line-using" v-bind:class="{'line-break':isUsing==0}"></div>
+        <div v-if="hasColor" class="back line-using" v-bind:class="{'line-break':isUsing==0}"></div>
         <div class="no d-flex flex-column">
             <div style="text-align:left">{{dianY}}V</div>
             <div style="text-align:left">{{dianL}}A</div>
@@ -10,6 +10,11 @@
 <script>
 export default {
   name: "back-no",
+  props: {
+    hasColor: {
+      default: 1
+    }
+  },
   data: function() {
     return {
       isUsing: 1,
@@ -44,8 +49,8 @@ export default {
     getRandomNo: function(min, max) {
       return (Math.random() * (max - min) + min).toFixed(2);
     },
-    emitDiaShow:function(){
-      this.$emit('dialogShow');
+    emitDiaShow: function() {
+      this.$emit("dialogShow");
     }
   }
 };

@@ -2,11 +2,11 @@
 <template>
     <div class="analysis-container d-flex flex-column">
         <div class="analysis-header d-flex justify-content-center">
-            <select class="select-lines" name="" id="" v-model="selectLineIndex">
+            <select class="select-lines"  v-model="selectLineIndex">
                 <option value="0" v-bind:key="0">全部支线</option>
                 <option v-for="(line,index) in lines" v-bind:key="index+1" v-bind:value="index+1">{{line.name}}</option>
             </select>
-            <select class="select-meters" name="" id="" v-if="selectLineIndex>0"  v-model="selectMeterIndex">
+            <select class="select-meters" v-if="selectLineIndex>0"  v-model="selectMeterIndex">
                 <option value="0" v-bind:key="0">全部表箱</option>
                 <option v-for="(meter,index) in selectLine.meters" v-bind:key="index+1" v-bind:value="index+1">{{meter.name}}</option>
             </select>
@@ -167,12 +167,14 @@ export default {
   },
   watch: {
     selectLineIndex: function(newVal) {
+      console.log("选择的："+newVal)
       if (newVal == 0) {
         this.selectLine = {};
         return;
       }
       this.selectMeterIndex = 0;
       this.selectLine = this.lines[newVal];
+      console.log("this.selectLine:"+JSON.stringify(this.selectLine));
     },
     selectMeterIndex: function() {}
   },

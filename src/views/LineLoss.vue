@@ -77,9 +77,6 @@ export default {
     this.initCharts(this.line2Charts, "line-2", this.line2Data);
   },
   methods: {
-    startLLDate:function(newVal){
-
-    },
     initCharts: function(charts, id, optionData) {
       charts = echarts.init(document.getElementById(id), "light");
       this.setOptions(charts, optionData);

@@ -46,15 +46,12 @@ export default {
   },
   mounted: function() {
     this.id = this.$route.params.id;
-    console.log('showDia的值：'+this.showDialog)
   },
   watch: {
-    $route(to, from) {
-      console.log(to.params.id);
+    $route(to) {
       this.id = to.params.id;
     },
-    showDialog: function(newVal) {
-      console.log("showDia:" + newVal);
+    showDialog: function() {
     }
   },
   filters: {
@@ -70,8 +67,6 @@ export default {
         dianYa = this.getRandomNo(220, 235);
         dianLiu = this.getRandomNo(1, 110);
       }
-
-      console.log(dianYa);
       return {
         电压: dianYa,
         电流: dianLiu
