@@ -4,24 +4,66 @@
         <div class="plan-body flex-grow-1">
             <img src="http://wx.dianliangliang.com/sucai/plan-graph.74a0cb6d.png" alt="">
             <img class="marginal-data position-absolute" src="http://wx.dianliangliang.com/sucai/marginal-data.png" alt="">
-            <random-back-no v-for="no in 68" v-bind:key="no" v-bind:class="'no-item-'+no" v-bind:hasColor="0">
+            <random-back-no v-for="no in 68" v-bind:key='"item-"+no' v-bind:class="'no-item-'+no" v-bind:hasColor="0">
             </random-back-no>
+            <sign-click v-for="num in 34" v-bind:key="num" v-on:showDia="showDia" v-bind:class='"click-item-"+num'></sign-click>
+            <div v-if="showDialog" class="meter-dialog d-flex flex-column">
+              <div class="dia-header d-flex justify-content-center">
+                <div class="flex-grow-1">电表箱</div>
+                <div class="close-icon align-self-right" v-on:click.stop="cancelDia">X</div>
+              </div>
+              <div class="dia-body flex-grow-1 d-flex flex-wrap">
+                  <meter-item v-for="m in 9" :type="getRandomType()" :key="m" class="col-4"></meter-item>
+              </div>
+            </div>
         </div>
     </div>
 </template>
 <script>
 import randomBakNo from "../components/random-backNo";
+import SignClick from "../components/SignClick";
+import MeterItem from "../components/Meter-Item"
 export default {
   name: "plan-graph",
   components: {
-    "random-back-no": randomBakNo
+    "random-back-no": randomBakNo,
+    "sign-click": SignClick,
+    "meter-item":MeterItem
   },
   data: function() {
-    return {};
+    return {
+      showDialog: 0
+    };
+  },
+  methods: {
+    cancelDia: function() {
+      this.showDialog = 0;
+    },
+    getRandomType: function() {
+      return parseInt(Math.round(Math.random() * 3));
+    },
+    showDia: function() {
+      this.showDialog = 1;
+    }
   }
 };
 </script>
 <style scoped>
+.meter-dialog {
+  position: absolute;
+  left: 60px;
+  top: 60px;
+  bottom: 60px;
+  right: 60px;
+  z-index: 999;
+  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 16px;
+}
+.dia-header {
+  font-size: 36px;
+  color: lightskyblue;
+}
 .plan-header {
   font-size: 24px;
   color: white;
@@ -33,6 +75,141 @@ export default {
   width: 270px;
   left: 30px;
   bottom: 20px;
+}
+.click-item-1 {
+  top: 236px;
+}
+.click-item-2 {
+  top: 236px;
+  left: 170px;
+}
+.click-item-3 {
+  top: 236px;
+  left: 250px;
+}
+.click-item-4 {
+  top: 236px;
+  left: 300px;
+}
+.click-item-5 {
+  top: 236px;
+  left: 370px;
+}
+.click-item-6 {
+  top: 236px;
+  left: 426px;
+}
+.click-item-7 {
+  top: 236px;
+  left: 496px;
+}
+.click-item-8 {
+  top: 236px;
+  left: 550px;
+}
+.click-item-9 {
+  top: 236px;
+  left: 620px;
+}
+.click-item-10 {
+  top: 236px;
+  left: 672px;
+}
+.click-item-11 {
+  top: 236px;
+  left: 860px;
+}
+.click-item-12 {
+  top: 236px;
+  right: 550px;
+}
+.click-item-13 {
+  top: 236px;
+  right: 480px;
+}
+.click-item-14 {
+  top: 236px;
+  right: 426px;
+}
+.click-item-15 {
+  top: 236px;
+  right: 350px;
+}
+.click-item-16 {
+  top: 236px;
+  right: 300px;
+}
+.click-item-17 {
+  top: 236px;
+  right: 230px;
+}
+.click-item-18 {
+  top: 236px;
+  right: 180px;
+}
+.click-item-19 {
+  bottom: 156px;
+  left: 360px;
+}
+.click-item-20 {
+  bottom: 156px;
+  left: 410px;
+}
+.click-item-21 {
+  bottom: 156px;
+  left: 480px;
+}
+.click-item-22 {
+  bottom: 156px;
+  left: 530px;
+}
+.click-item-23 {
+  bottom: 156px;
+  left: 610px;
+}
+.click-item-24 {
+  bottom: 156px;
+  left: 660px;
+}
+.click-item-25 {
+  bottom: 156px;
+  left: 730px;
+}
+.click-item-26 {
+  bottom: 156px;
+  left: 780px;
+}
+.click-item-27 {
+  bottom: 156px;
+  right: 470px;
+}
+.click-item-28 {
+  bottom: 156px;
+  right: 420px;
+}
+.click-item-29 {
+  bottom: 156px;
+  right: 350px;
+}
+.click-item-30 {
+  bottom: 156px;
+  right: 300px;
+}
+.click-item-31 {
+  bottom: 156px;
+  right: 220px;
+}
+.click-item-32 {
+  bottom: 156px;
+  right: 170px;
+}
+.click-item-33 {
+  bottom: 156px;
+  right: 100px;
+}
+.click-item-34 {
+  bottom: 156px;
+  right: 50px;
 }
 .no-item-1 {
   right: 1368px;
@@ -139,7 +316,7 @@ export default {
   top: 270px;
 }
 .no-item-27 {
-  left:1060px;
+  left: 1060px;
   top: 190px;
 }
 .no-item-28 {

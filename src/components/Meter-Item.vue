@@ -144,7 +144,7 @@ export default {
   filters: {},
   computed: {
     filterMeterNo: function() {
-      switch (this.type) {
+      switch (parseInt(this.type)) {
         case 0:
           return this.meterNo;
         case 1:
@@ -152,7 +152,7 @@ export default {
         case 2:
           return "000000";
         default:
-          return "000000";
+          return this.meterNo;
       }
     }
   },
