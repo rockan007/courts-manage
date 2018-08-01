@@ -1,12 +1,11 @@
 <template>
-    <div class="plan-container d-flex flex-column align-items-center position-relative">
-        <div class="plan-header">平面图</div>
-        <div class="plan-body flex-grow-1">
-            <img src="http://wx.dianliangliang.com/sucai/plan-graph.74a0cb6d.png" alt="">
-            <img class="marginal-data position-absolute" src="http://wx.dianliangliang.com/sucai/marginal-data.png" alt="">
-            <random-back-no v-for="no in 68" v-bind:key='"item-"+no' v-bind:class="'no-item-'+no" v-bind:hasColor="0">
-            </random-back-no>
-            <sign-click v-for="num in 34" v-bind:key="num" v-on:showDia="showDia" v-bind:class='"click-item-"+num'></sign-click>
+    <div class="plan-container flex-grow-1 d-flex flex-column align-items-center position-relative " >
+        <div id="plan-body" class="plan-body flex-grow-1 flex-shrink-1 d-flex align-items-center justify-content-center position-absolute"  data-spy="scroll" style="overflow-x: scroll">
+            <!-- <img src="http://wx.dianliangliang.com/sucai/plan-graph.74a0cb6d.png" alt=""> -->
+            <div id="plan-img" class="" style="padding:0px 20px 0px 2380px" >
+                <img class=""  src="http://wx.dianliangliang.com/sucai/pmt.png" alt="">
+            </div>
+            <!-- <img class="marginal-data position-absolute" src="http://wx.dianliangliang.com/sucai/marginal-data.png" alt=""> -->
             <div v-if="showDialog" class="meter-dialog d-flex flex-column">
               <div class="dia-header d-flex justify-content-center">
                 <div class="flex-grow-1">电表箱</div>
@@ -20,15 +19,25 @@
     </div>
 </template>
 <script>
+import $ from "jquery";
 import randomBakNo from "../components/random-backNo";
 import SignClick from "../components/SignClick";
-import MeterItem from "../components/Meter-Item"
+import MeterItem from "../components/Meter-Item";
 export default {
   name: "plan-graph",
   components: {
     "random-back-no": randomBakNo,
     "sign-click": SignClick,
-    "meter-item":MeterItem
+    "meter-item": MeterItem
+  },
+  mounted: function() {
+    var myDiv = $("#plan-body");
+    var scrollto = myDiv.offset().left + myDiv.width() / 2;
+    myDiv.animate({ scrollLeft: scrollto+150 });
+    // let body=document.getElementById('plan-body');
+    // body.scrollLeft=2000;
+    // // body.scrollTo(5000,1000);
+    // console.log(body.scrollLeft);
   },
   data: function() {
     return {
@@ -49,6 +58,12 @@ export default {
 };
 </script>
 <style scoped>
+.plan-body {
+  max-width: 100%;
+}
+.plan-graph-container {
+  width: 100%;
+}
 .meter-dialog {
   position: absolute;
   left: 60px;
@@ -57,7 +72,7 @@ export default {
   right: 60px;
   z-index: 999;
   border-radius: 16px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 1.0);
   padding: 16px;
 }
 .dia-header {
@@ -69,7 +84,10 @@ export default {
   color: white;
 }
 .plan-body {
-  margin: 60px 30px 60px 100px;
+  top: 60px;
+  right: 30px;
+  bottom: 60px;
+  left: 100px;
 }
 .marginal-data {
   width: 270px;

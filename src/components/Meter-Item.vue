@@ -1,145 +1,51 @@
 <template>
-    <div class="meter-container d-flex justify-content-center align-items-center" v-bind:class='[{"meter-stopping":type==1},{"meter-noUsing":type==2}]'>
-        <div class="meter-no-container flex-grow-1">
+    <div class="meter-container d-flex justify-content-center align-items-center position-relative" v-bind:class='[{"meter-stopping":type==1},{"meter-noUsing":type==2}]'>
+        <div class="meter-no-container d-flex flex-column justify-content-between align-items-stretch flex-grow-1">
             <div class="meter-no">{{filterMeterNo}}</div>
         </div>
         <div class="meter-info d-flex flex-column">
           <div class="name">
-            姓名:{{type==2?'无':familyNames[getrandomInt(0,99)]+getRandomCCharacter()+getRandomCCharacter()}}
+            姓名:{{meterData.name?meterData.name:"无"}}
           </div>
           <div>
-            户号：{{type==2?'无':'*****'+getRandomNo(100,10000,4)}}
-          </div>
-          <div class="">
-            电压：{{type==1||type==2?0:getRandomFloat(220,230)}}V
-            
-          </div>
-          <div>
-            电流：{{type==1||type==2?0:getRandomFloat(10,100)}}A
+            户号：{{meterData.no?meterData.no:'无'}}
           </div>
         </div>
+        <div class="meter-order position-absolute">{{meterOrder}}</div>
     </div>
 </template>
 <script>
 export default {
   name: "meter-item",
   props: {
-    type: {
-      default: 0, //0正常 1 欠费 2 未安装
-      type: Number
+    meterOrder: {
+      default: 0
+    },
+    meterData: {
+      default: function() {
+        return {};
+      },
+      type: Object
     }
   },
   data: function() {
     return {
       meterNo: "000000",
-      familyNames: [
-        "赵",
-        "钱",
-        "孙",
-        "李",
-        "周",
-        "吴",
-        "郑",
-        "王",
-        "冯",
-        "陈",
-        "褚",
-        "卫",
-        "蒋",
-        "沈",
-        "韩",
-        "杨",
-        "朱",
-        "秦",
-        "尤",
-        "许",
-        "何",
-        "吕",
-        "施",
-        "张",
-        "孔",
-        "曹",
-        "严",
-        "华",
-        "金",
-        "魏",
-        "陶",
-        "姜",
-        "戚",
-        "谢",
-        "邹",
-        "喻",
-        "柏",
-        "水",
-        "窦",
-        "章",
-        "云",
-        "苏",
-        "潘",
-        "葛",
-        "奚",
-        "范",
-        "彭",
-        "郎",
-        "鲁",
-        "韦",
-        "昌",
-        "马",
-        "苗",
-        "凤",
-        "花",
-        "方",
-        "俞",
-        "任",
-        "袁",
-        "柳",
-        "酆",
-        "鲍",
-        "史",
-        "唐",
-        "费",
-        "廉",
-        "岑",
-        "薛",
-        "雷",
-        "贺",
-        "倪",
-        "汤",
-        "滕",
-        "殷",
-        "罗",
-        "毕",
-        "郝",
-        "邬",
-        "安",
-        "常",
-        "乐",
-        "于",
-        "时",
-        "傅",
-        "皮",
-        "卞",
-        "齐",
-        "康",
-        "伍",
-        "余",
-        "元",
-        "卜",
-        "顾",
-        "孟",
-        "平",
-        "黄",
-        "和",
-        "穆",
-        "萧",
-        "尹"
-      ]
+      type: 0
     };
   },
   mounted: function() {
+    this.type=this.meterData.name?0:2;
     this.getRandomMeterNo();
-    console.log(this.getRandomCCharacter());
-    console.log("百家姓的长度：" + this.familyNames.length);
+  },
+  watch:{
+    meterData:{
+      deep:true,
+      handler:function(newVal){
+        console.log(newVal)
+        this.type=newVal.name?0:2;
+      }
+    }
   },
   filters: {},
   computed: {
@@ -187,13 +93,16 @@ export default {
           noStr = "0" + noStr;
         }
       }
-      console.log("后：" + noStr);
       return noStr;
     }
   }
 };
 </script>
 <style scoped>
+.meter-order {
+  bottom: -5px;
+  left: 130px;
+}
 .meter-container {
   color: red;
   margin: 8px 0;
@@ -219,6 +128,6 @@ export default {
 }
 .meter-info {
   text-align: left;
-  min-width: 114.72px;
+  min-width: 136.98px;
 }
 </style>

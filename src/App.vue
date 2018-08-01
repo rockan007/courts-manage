@@ -3,7 +3,7 @@
     <div class="app-header" v-on:click="routerToRoot()">
 
     </div>
-    <div class="app-body flex-grow-1 d-flex align-items-stretch">
+    <div class="app-body flex-grow-1 flex-shrink-1 d-flex align-items-stretch">
       <left-nav v-on:selectOrder="getSelectOrder"></left-nav>
       <router-view v-on:resize="getBodySize" v-bind:selectOrder="selectOrder" class="flex-grow-1">
       </router-view>
@@ -42,7 +42,8 @@ export default {
       deep: true
     },
     selectOrder: {
-      handler: function() {
+      handler: function(newVal) {
+        console.log("selectOrder改变的值：" + JSON.stringify(newVal));
         this.routerToDetail();
       },
       deep: true
@@ -59,22 +60,11 @@ export default {
       }
       switch (this.selectOrder.item) {
         case 0:
-          this.$router.push({
-            name: "analog-line",
-            params: {
-              id: this.selectOrder.order
-            }
-          });
+          this.$router.push(
+            "/sample-graph/" + this.selectOrder.order + "/GIS-map"
+          );
           break;
         case 1:
-          this.$router.push({
-            name: "plan-graph",
-            params: {
-              id: this.selectOrder.order
-            }
-          });
-          break;
-        case 2:
           this.$router.push({
             name: "videoes",
             params: {
@@ -82,7 +72,7 @@ export default {
             }
           });
           break;
-        case 3:
+        case 2:
           this.$router.push({
             name: "eletric-anys",
             params: {
@@ -90,7 +80,7 @@ export default {
             }
           });
           break;
-        case 4:
+        case 3:
           this.$router.push({
             name: "line-loss",
             params: {
@@ -98,7 +88,7 @@ export default {
             }
           });
           break;
-        case 5:
+        case 4:
           this.$router.push({
             name: "event-alert",
             params: {
@@ -118,6 +108,7 @@ export default {
       };
     },
     getSelectOrder: function(order) {
+      console.log("order:" + JSON.stringify(order));
       this.selectOrder = order;
     }
   }

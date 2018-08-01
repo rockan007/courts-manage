@@ -1,6 +1,6 @@
 <template>
-    <div class="back-no d-flex flex-column justify-content-between" v-on:click='emitDiaShow()'>
-        <div v-if="hasColor" class="back line-using" v-bind:class="{'line-break':isUsing==0}"></div>
+    <div class="back-no d-flex flex-column justify-content-between" v-on:click='emitDiaShow'>
+        <div v-if="hasColor&&showBack" class="back line-using" v-bind:class="{'line-break':isUsing==0}"></div>
         <div class="no d-flex flex-column">
             <div style="text-align:left">{{dianY}}V</div>
             <div style="text-align:left">{{dianL}}A</div>
@@ -11,8 +11,14 @@
 export default {
   name: "back-no",
   props: {
+    meterBoxNo: {
+      default: 0
+    },
     hasColor: {
       default: 1
+    },
+    showBack: {
+      default: true
     }
   },
   data: function() {
@@ -24,6 +30,7 @@ export default {
   },
   mounted: function() {
     this.randomIsUsing();
+    console.log("…………………………是否具有："+this.meterBoxNo+":"+this.showBack)
   },
   watch: {
     isUsing: function(newVal) {
@@ -50,7 +57,8 @@ export default {
       return (Math.random() * (max - min) + min).toFixed(2);
     },
     emitDiaShow: function() {
-      this.$emit("dialogShow");
+      console.log(this.meterBoxNo);
+      this.$emit("dialogShow", this.meterBoxNo);
     }
   }
 };
@@ -68,7 +76,7 @@ export default {
   font-size: 12px;
 }
 .line-using {
-  background-color: rgba(255, 0, 0, 0.7);
+  background-color: rgba(255, 0, 0, 0.5);
 }
 .line-break {
   background-color: rgba(0, 128, 0, 0.5);

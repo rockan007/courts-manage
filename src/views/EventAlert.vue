@@ -1,7 +1,8 @@
 <template>
     <div class="eventAlert-container">
-        <div class="eventAlert-header">
-            事件预警
+        <div class="eventAlert-header d-flex">
+            <div class="eventAlert-title flex-grow-1">事件预警</div> 
+            <button class="btn btn-outline-primary" v-on:click="exportAlert">导出表格</button>
         </div>
         <div class="eventAlert-body">
             <table class="table table-striped table-dark">
@@ -51,14 +52,19 @@
 </template>
 <script>
 export default {
-  name: "event-alert"
+  name: "event-alert",
+  methods:{
+    exportAlert:function(){
+      window.open("http://wx.dianliangliang.com/sucai/courts-manage/courts-manage/事件警报.xlsx")
+    }
+  }
 };
 </script>
 <style scoped>
 .eventAlert-container {
   color: white;
 }
-.eventAlert-header {
+.eventAlert-title  {
   font-size: 24px;
 }
 .eventAlert-body{

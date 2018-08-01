@@ -2,14 +2,17 @@
 <template>
     <div class="analysis-container d-flex flex-column">
         <div class="analysis-header d-flex justify-content-center">
-            <select class="select-lines"  v-model="selectLineIndex">
-                <option value="0" v-bind:key="0">全部支线</option>
+          <div class="flex-grow-1">
+             <select class="select-lines"  v-model="selectLineIndex">
+                <option value="0" key="0">全部支线</option>
                 <option v-for="(line,index) in lines" v-bind:key="index+1" v-bind:value="index+1">{{line.name}}</option>
             </select>
             <select class="select-meters" v-if="selectLineIndex>0"  v-model="selectMeterIndex">
-                <option value="0" v-bind:key="0">全部表箱</option>
-                <option v-for="(meter,index) in selectLine.meters" v-bind:key="index+1" v-bind:value="index+1">{{meter.name}}</option>
+                <option value="0" key="meter-0">全部表箱</option>
+                <option v-for="(meter,index) in selectLine.meters" v-bind:key="'meter-'+index+1" v-bind:value="index+1">{{meter.name}}</option>
             </select>
+          </div>
+           <button class="btn btn-outline-primary" v-on:click="exportAnaly">导出表格</button>
         </div>
         <div class="analysis-body flex-grow-1 d-flex flex-column">
              <p  style="margin-bottom:0">
@@ -31,73 +34,121 @@ export default {
     return {
       lines: [
         {
-          name: "支线1#",
+          name: "东线",
           meters: [
             {
-              name: "表箱1#"
+              name: "表箱01#"
             },
             {
-              name: "表箱2#"
+              name: "表箱02#"
             },
             {
-              name: "表箱3#"
+              name: "表箱03#"
             },
             {
-              name: "表箱4#"
+              name: "表箱04#"
             },
             {
-              name: "表箱5#"
+              name: "表箱05#"
+            },
+            {
+              name: "表箱06#"
+            },
+            {
+              name: "表箱07#"
+            },
+            {
+              name: "表箱08#"
             }
           ]
         },
         {
-          name: "支线2#",
+          name: "西线",
           meters: [
             {
-              name: "表箱-村东"
+              name: "表箱09#"
             },
             {
-              name: "表箱-村西"
+              name: "表箱10#"
             },
             {
-              name: "表箱-村北"
+              name: "表箱11#"
             },
             {
-              name: "表箱-村南"
+              name: "表箱12#"
+            },
+            {
+              name: "表箱13#"
+            },
+            {
+              name: "表箱14#"
+            },
+            {
+              name: "表箱15#"
+            },
+            {
+              name: "表箱16#"
+            },
+            {
+              name: "表箱17#"
+            },
+            {
+              name: "表箱18#"
             }
           ]
         },
         {
-          name: "南线",
+          name: "东线西支",
           meters: [
             {
-              name: "南支-表箱-1"
+              name: "表箱19#"
             },
             {
-              name: "南支-表箱-2"
+              name: "表箱20#"
             },
             {
-              name: "南支-表箱-3"
+              name: "表箱21#"
             },
             {
-              name: "南支-表箱-4"
+              name: "表箱22#"
+            },
+            {
+              name: "表箱23#"
+            },
+            {
+              name: "表箱24#"
+            },
+            {
+              name: "表箱25#"
+            },
+            {
+              name: "表箱26#"
             }
           ]
         },
         {
-          name: "线路东支",
+          name: "东线东支",
           meters: [
             {
-              name: "东支-表箱-1"
+              name: "表箱27#"
             },
             {
-              name: "东支-表箱-2"
+              name: "表箱28#"
             },
             {
-              name: "东支-表箱-3"
+              name: "表箱30#"
             },
             {
-              name: "东支-表箱-4"
+              name: "表箱31#"
+            },
+            {
+              name: "表箱32#"
+            },
+            {
+              name: "表箱33#"
+            },
+            {
+              name: "表箱34#"
             }
           ]
         }
@@ -167,18 +218,16 @@ export default {
   },
   watch: {
     selectLineIndex: function(newVal) {
-      console.log("选择的："+newVal)
+      console.log("******选择的：" + newVal);
       if (newVal == 0) {
         this.selectLine = {};
         return;
       }
       this.selectMeterIndex = 0;
-      this.selectLine = this.lines[newVal];
-      console.log("this.selectLine:"+JSON.stringify(this.selectLine));
+      this.selectLine = this.lines[newVal-1];
+      console.log("this.selectLine:" + JSON.stringify(this.selectLine));
     },
-    selectMeterIndex: function() {}
-  },
-  watch: {
+    selectMeterIndex: function() {},
     period: function(newVal) {
       let optionData = "";
       switch (parseInt(newVal)) {
@@ -199,6 +248,9 @@ export default {
     }
   },
   methods: {
+    exportAnaly:function(){
+         window.open('http://wx.dianliangliang.com/sucai/courts-manage/courts-manage/用电分析(周).xlsx')
+    },
     initCharts: function() {
       this.myChart = echarts.init(
         document.getElementById("echarts-container"),
@@ -219,6 +271,7 @@ export default {
         },
         yAxis: {
           type: "value",
+          axisLabel:{formatter:'{value} kWh'},
           axisLine: {
             lineStyle: {
               color: "#56fdff" //坐标轴线颜色

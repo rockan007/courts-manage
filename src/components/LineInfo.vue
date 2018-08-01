@@ -16,7 +16,7 @@ export default {
       lineInfo: [
         {
           name: "容量",
-          content: 20
+          content: '20kVA'
         },
         {
           name: "表箱数",

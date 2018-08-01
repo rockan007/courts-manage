@@ -1,25 +1,22 @@
 <template>
-    <div class="analog-line-container d-flex flex-column">
-        <div class="analog-header">
-          模拟电路
-        </div>
+    <div class="analog-line-container flex-grow-1 d-flex flex-column">
         <div class="analog-body flex-grow-1 d-flex align-items-center justify-content-center">
             <template v-if="id==1">
               <img src="http://wx.dianliangliang.com/sucai/hikd.2635fc5c.png" class="analog-image" alt="">
               <line-info class="line-info"></line-info>
-              <back-no v-for="meterNo in 34" :key="meterNo" v-on:dialogShow="getDialogShow" v-bind:class="['meterNo-'+meterNo,{'flex-column-reverse':meterNo>16}]"></back-no>
+              <back-no v-bind:showBack='meterNo<35' v-for="meterNo in 37" v-bind:meterBoxNo="meterNo" :key="meterNo" v-on:dialogShow="getDialogShow" v-bind:class="['meterNo-'+meterNo,{'flex-column-reverse':meterNo>16}]"></back-no>
             </template>
             <template v-else>
               <img src="http://wx.dianliangliang.com/sucai/analog-line.1b8ec1ef.png" class="analog-image" alt="">
               <dynamic-no  v-for="no in 6" v-bind:key="no" v-bind:class="'dynamic-bottom-'+no" v-bind:dynamicItem="getRandomBottom(no)"></dynamic-no>
             </template> 
-            <div v-if="showDialog" class="meter-dialog d-flex flex-column">
+            <div v-if="showDialog&&selectMeterBox" class="meter-dialog d-flex flex-column">
               <div class="dia-header d-flex justify-content-center">
                 <div class="flex-grow-1">电表箱</div>
                 <div class="close-icon align-self-right" v-on:click.stop="cancelDia">X</div>
               </div>
               <div class="dia-body flex-grow-1 d-flex flex-wrap">
-                  <meter-item v-for="m in 9" :type="getRandomType()" :key="m" class="col-4"></meter-item>
+                  <meter-item  v-for="m in 9" :type="getRandomType()" v-bind:meterData="selectMeterBox.C[m-1]?selectMeterBox.C[m-1]:{}" :key="m" v-bind:meterOrder="m" class="col-4"></meter-item>
               </div>
             </div>
         </div>
@@ -28,30 +25,43 @@
 <script>
 import DynamicNo from "../components/DynamicNo";
 import BackNo from "../components/random-backNo";
-import MeterItem from '../components/Meter-Item';
-import LineInfo from '../components/LineInfo';
+import MeterItem from "../components/Meter-Item";
+import LineInfo from "../components/LineInfo";
+import { meterNoMap, meterBoxes } from "../assets/scripts/meters-data.js";
 export default {
   name: "analog-line",
   components: {
     "dynamic-no": DynamicNo,
     "back-no": BackNo,
-    "meter-item":MeterItem,
-    "line-info":LineInfo
+    "meter-item": MeterItem,
+    "line-info": LineInfo
   },
   data: function() {
     return {
       id: 0,
-      showDialog: 0
+      showDialog: 0,
+      selectMap: 0,
+      selectMeterBoxNo: 0,
+      meterBoxList: "",
+      selectMeterBox: ""
     };
   },
   mounted: function() {
     this.id = this.$route.params.id;
+    this.getMeterBoxList();
+    console.log("meterNoMap:" + meterNoMap.has("373000500000240440833"));
   },
   watch: {
     $route(to) {
       this.id = to.params.id;
     },
-    showDialog: function() {
+    showDialog: function() {},
+    meterBoxList: {
+      deep: true,
+      handler: function() {}
+    },
+    selectMeterBoxNo: function(newVal) {
+      this.selectMeterBox = this.meterBoxList[newVal-1];
     }
   },
   filters: {
@@ -60,8 +70,17 @@ export default {
     }
   },
   methods: {
-    getRandomType:function(){
-      return parseInt(Math.round(Math.random()*3));
+    getMeterBoxList: function() {
+      meterBoxes.forEach(meterBox => {
+        meterBox.order = meterNoMap.get(meterBox.JLXBH);
+      });
+      meterBoxes.sort(function(a, b) {
+        return a.order - b.order;
+      });
+      this.meterBoxList = meterBoxes;
+    },
+    getRandomType: function() {
+      return parseInt(Math.round(Math.random() * 3));
     },
     getRandomBottom: function(no) {
       let dianYa = 0;
@@ -81,7 +100,9 @@ export default {
     getRandomNo: function(minNo, maxNo) {
       return (Math.random() * (maxNo - minNo) + minNo).toFixed(2);
     },
-    getDialogShow: function() {
+    getDialogShow: function(no) {
+      console.log("$$$$$$$:"+no);
+      this.selectMeterBoxNo = no;
       this.showDialog = 1;
     },
     cancelDia: function() {
@@ -91,7 +112,7 @@ export default {
 };
 </script>
 <style scoped>
-.line-info{
+.line-info {
   left: -50px;
   bottom: 0px;
 }
@@ -110,7 +131,7 @@ export default {
   right: 60px;
   z-index: 999;
   border-radius: 16px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 1);
   padding: 16px;
 }
 .analog-line-container {
@@ -285,5 +306,17 @@ export default {
 .meterNo-34 {
   right: 194px;
   top: 152px;
+}
+.meterNo-35 {
+  left: 696px;
+  top: 180px;
+}
+.meterNo-36 {
+  right: 700px;
+  top: 230px;
+}
+.meterNo-37 {
+  left: 710px;
+  top: 230px;
 }
 </style>

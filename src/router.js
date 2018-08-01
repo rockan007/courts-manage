@@ -7,6 +7,8 @@ import VideoSurveilance from './views/VideoSurveilance'
 import EleAnys from './views/ElectricAnalysis'
 import LineLoss from './views/LineLoss'
 import EventAlert from './views/EventAlert'
+import SampleGraph from '@/views/sample-graph'
+import GISMap from '@/views/GIS-map'
 
 Vue.use(Router)
 
@@ -17,13 +19,22 @@ export default new Router({
       component: MapView
     },
     {
-      path: '/analogLine/:id',
-      name: 'analog-line',
-      component: AnalogLine
-    }, {
-      path: '/planGraph/:id',
-      name: 'plan-graph',
-      component: PlanGraph
+      path: '/sample-graph/:id',
+      name: 'sample-graph',
+      component: SampleGraph,
+      children: [{
+        path: 'analog-line',
+        name: 'analog-line',
+        component: AnalogLine
+      }, {
+        path: 'plan-graph',
+        name: 'plan-graph',
+        component: PlanGraph
+      }, {
+        path: 'GIS-map',
+        name: 'GIS-map',
+        component: GISMap
+      }]
     }, {
       path: '/videoes/:id',
       name: 'videoes',
