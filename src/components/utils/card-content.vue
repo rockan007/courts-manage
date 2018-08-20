@@ -1,5 +1,5 @@
 <template>
-    <div class="card-content col-12 d-flex flex-column" v-bind:class='[{"main-card-content":isMainPage}]'>
+    <div class="card-content col-12 d-flex flex-column flex-shrink-1" v-bind:class='[{"main-card-content":isMainPage}]'>
           <div class="card-subtitles d-flex justify-content-around">
                 <div class="subTitle-container col-3 d-flex flex-column" 
                 v-bind:style='{"background-color":bgColors[(parseInt(cardData.isEle)*3+index)]}' 
@@ -8,9 +8,9 @@
                     <div class="subTitle-info align-self-end" v-bind:class='[{"main-subTitle-info":isMainPage}]'>{{subTitle.info}}</div>
                 </div>
             </div>
-            <div class="card-infoes flex-grow-1 d-flex flex-column justify-content-around align-items-start">
-                <div class="card-info" v-bind:class='[{"main-card-info":isMainPage}]' v-for="(info,index) in cardData.infoList" v-bind:key="index">
-                        {{info.title}}:{{info.info}}
+            <div class="card-infoes  flex-shrink-1 d-flex flex-column flex-wrap ">
+                <div class="card-info col-6 d-flex justify-content-between" v-bind:class='[{"main-card-info":isMainPage}]' v-for="(info,index) in cardData.infoList" v-bind:key="index">
+                       <div> {{info.title}}:</div><div class="item-info">{{info.info}}</div>
                 </div>
             </div>
     </div>
@@ -84,9 +84,11 @@ export default {
 .main-card-content {
   padding: 16px 32px;
 }
-
+.card-subtitles{
+  min-height: 75px;
+}
 .card {
-  color: #00706b;
+  color: hsl(177, 100%, 22%);
   min-height: 380px;
   padding: 8px 16px;
 }
@@ -113,6 +115,9 @@ export default {
 }
 .main-subTitle-title {
   font-size: 14px;
+}
+.item-info{
+  color: rgba(255, 0, 180,0.6);
 }
 .subTitle-info {
   font-size: 20px;

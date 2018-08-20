@@ -6,7 +6,7 @@
 </template>
 <script>
 import $ from "jquery";
-import 'bootstrap/dist/js/bootstrap.min.js'
+import "bootstrap/dist/js/bootstrap.min.js";
 import infoCard from "@/components/utils/info-card";
 import modal from "@/components/utils/modal";
 export default {
@@ -98,8 +98,20 @@ export default {
           ],
           infoList: [
             {
-              title: "母排温度",
+              title: "变压器温度",
               info: "60℃"
+            },
+            {
+              title: "A相母排温度",
+              info: "54℃"
+            },
+            {
+              title: "B相母排温度",
+              info: "54℃"
+            },
+            {
+              title: "C相母排温度",
+              info: "54℃"
             },
             {
               title: "负载率",
@@ -134,7 +146,19 @@ export default {
           ],
           infoList: [
             {
-              title: "母排温度",
+              title: "变压器温度",
+              info: "54℃"
+            },
+            {
+              title: "A相母排温度",
+              info: "54℃"
+            },
+            {
+              title: "B相母排温度",
+              info: "54℃"
+            },
+            {
+              title: "C相母排温度",
               info: "54℃"
             },
             {
@@ -170,8 +194,20 @@ export default {
           ],
           infoList: [
             {
-              title: "母排温度",
+              title: "变压器温度",
               info: "58℃"
+            },
+            {
+              title: "A相母排温度",
+              info: "54℃"
+            },
+            {
+              title: "B相母排温度",
+              info: "54℃"
+            },
+            {
+              title: "C相母排温度",
+              info: "54℃"
             },
             {
               title: "负载率",
@@ -269,8 +305,10 @@ export default {
   },
   methods: {
     showInfo: function() {
-      console.log("*****************展示信息***************"+this.modalDia.id);
-      $('#' + this.modalDia.id).modal("show");
+      console.log(
+        "*****************展示信息***************" + this.modalDia.id
+      );
+      $("#" + this.modalDia.id).modal("show");
     },
     randomCardList: function() {
       this.cardList[0].subTitles[0].info = this.getRandomNo(22, 26) + "℃";
@@ -280,17 +318,26 @@ export default {
       this.cardList[2].subTitles[1].info = this.getRandomNo(220, 230) + "V";
       this.cardList[2].subTitles[2].info = this.getRandomNo(220, 230) + "V";
       this.cardList[2].infoList[0].info = this.getRandomNo(50, 70) + "℃";
-      this.cardList[2].infoList[1].info = this.getRandomNo(70, 80) + "%";
+      this.cardList[2].infoList[1].info = this.getRandomNo(50, 70) + "℃";
+      this.cardList[2].infoList[2].info = this.getRandomNo(50, 70) + "℃";
+      this.cardList[2].infoList[3].info = this.getRandomNo(50, 70) + "℃";
+      this.cardList[2].infoList[4].info = this.getRandomNo(70, 80) + "%";
       this.cardList[3].subTitles[0].info = this.getRandomNo(220, 230) + "V";
       this.cardList[3].subTitles[1].info = this.getRandomNo(220, 230) + "V";
       this.cardList[3].subTitles[2].info = this.getRandomNo(220, 230) + "V";
       this.cardList[3].infoList[0].info = this.getRandomNo(50, 70) + "℃";
-      this.cardList[3].infoList[1].info = this.getRandomNo(70, 80) + "%";
+      this.cardList[3].infoList[1].info = this.getRandomNo(50, 70) + "℃";
+      this.cardList[3].infoList[2].info = this.getRandomNo(50, 70) + "℃";
+      this.cardList[3].infoList[3].info = this.getRandomNo(50, 70) + "℃";
+      this.cardList[3].infoList[4].info = this.getRandomNo(70, 80) + "%";
       this.cardList[4].subTitles[0].info = this.getRandomNo(220, 230) + "V";
       this.cardList[4].subTitles[1].info = this.getRandomNo(220, 230) + "V";
       this.cardList[4].subTitles[2].info = this.getRandomNo(220, 230) + "V";
       this.cardList[4].infoList[0].info = this.getRandomNo(50, 70) + "℃";
-      this.cardList[4].infoList[1].info = this.getRandomNo(70, 80) + "%";
+      this.cardList[4].infoList[1].info = this.getRandomNo(50, 70) + "℃";
+      this.cardList[4].infoList[2].info = this.getRandomNo(50, 70) + "℃";
+      this.cardList[4].infoList[3].info = this.getRandomNo(50, 70) + "℃";
+      this.cardList[4].infoList[4].info = this.getRandomNo(70, 80) + "%";
       setTimeout(this.randomCardList, 1000);
     },
     getRandomNo: function(minNo, maxNo) {
