@@ -224,7 +224,7 @@ export default {
         return;
       }
       this.selectMeterIndex = 0;
-      this.selectLine = this.lines[newVal-1];
+      this.selectLine = this.lines[newVal - 1];
       console.log("this.selectLine:" + JSON.stringify(this.selectLine));
     },
     selectMeterIndex: function() {},
@@ -248,8 +248,10 @@ export default {
     }
   },
   methods: {
-    exportAnaly:function(){
-         window.open('http://wx.dianliangliang.com/sucai/courts-manage/courts-manage/用电分析(周).xlsx')
+    exportAnaly: function() {
+      window.open(
+        "http://wx.dianliangliang.com/sucai/courts-manage/courts-manage/用电分析(周).xlsx"
+      );
     },
     initCharts: function() {
       this.myChart = echarts.init(
@@ -271,7 +273,7 @@ export default {
         },
         yAxis: {
           type: "value",
-          axisLabel:{formatter:'{value} kWh'},
+          axisLabel: { formatter: "{value} kWh" },
           axisLine: {
             lineStyle: {
               color: "#56fdff" //坐标轴线颜色
@@ -281,7 +283,8 @@ export default {
         series: [
           {
             data: optionData.yLine,
-            type: "line"
+            type: "line",
+            areaStyle: {}
           }
         ]
       };

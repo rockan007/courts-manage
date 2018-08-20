@@ -9,6 +9,7 @@ import LineLoss from './views/LineLoss'
 import EventAlert from './views/EventAlert'
 import SampleGraph from '@/views/sample-graph'
 import GISMap from '@/views/GIS-map'
+import oprationalParams from '@/views/oprational-params'
 
 Vue.use(Router)
 
@@ -34,6 +35,10 @@ export default new Router({
         path: 'GIS-map',
         name: 'GIS-map',
         component: GISMap
+      },{
+        path:'oprational-params',
+        name:'oprational-params',
+        component:oprationalParams
       }]
     }, {
       path: '/videoes/:id',

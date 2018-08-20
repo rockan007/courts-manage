@@ -3,8 +3,9 @@
         <div class="maps-header">
           <select name="" id="" v-model="selectMap">
             <option value="0">GIS图</option>
-            <option value="1">平面图</option>
+            <option value="1" v-show="id!=0">平面图</option>
             <option value="2">模拟图</option>
+            <option value="3">运行参数</option>
           </select>
         </div>
         <router-view></router-view>
@@ -20,7 +21,7 @@ export default {
     };
   },
   mounted: function() {
-    this.id = this.$route.params.id
+    this.id = this.$route.params.id;
   },
   watch: {
     $route(to, from) {
@@ -42,10 +43,14 @@ export default {
         case 2:
           routerPath += "/analog-line";
           break;
+        case 3:
+          routerPath += "/oprational-params";
+          break;
         default:
           routerPath += "/GIS-map";
           break;
       }
+      console.log("****************获取的跳转路径："+routerPath)
       this.$router.push(routerPath);
     }
   },

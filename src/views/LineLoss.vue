@@ -52,8 +52,8 @@ export default {
   data: function() {
     return {
       selectMeterBoxNo: 1,
-      startLLDate: "2018-07-16",
-      endLLDate: "20180-07-24",
+      startLLDate: "2018-08-13",
+      endLLDate: "2018-08-20",
       lineCharts: "",
       line1Charts: "",
       line2Charts: "",
@@ -115,8 +115,10 @@ export default {
     this.initCharts(this.line4Charts, "line-4", this.line4Data);
   },
   methods: {
-    exportLineLoss:function(){
-      window.open('http://wx.dianliangliang.com/sucai/courts-manage/courts-manage/%E7%BA%BF%E6%8D%9F%E5%88%86%E6%9E%90.xlsx')
+    exportLineLoss: function() {
+      window.open(
+        "http://wx.dianliangliang.com/sucai/courts-manage/courts-manage/%E7%BA%BF%E6%8D%9F%E5%88%86%E6%9E%90.xlsx"
+      );
     },
     initCharts: function(charts, id, optionData) {
       charts = echarts.init(document.getElementById(id), "light");
@@ -146,7 +148,8 @@ export default {
           data: ["实际用电量", "线损电量"],
           textStyle: {
             color: "rgba(255, 255, 255, 0.8)"
-          }
+          },
+          selectedMode: false
         },
         series: [
           {
@@ -161,6 +164,15 @@ export default {
                 shadowOffsetX: 0,
                 shadowColor: "rgba(0, 0, 0, 0.5)"
               }
+            },
+            label: {
+              normal: {
+                formatter: "{b}\n{c}\n{d}%",
+                textStyle: {
+                  fontWeight: "normal",
+                  fontSize: 12
+                }
+              }
             }
           }
         ]
@@ -173,7 +185,7 @@ export default {
 };
 </script>
 <style scoped>
-.select-container{
+.select-container {
   font-size: 20px;
   line-height: 36px;
 }
