@@ -117,7 +117,7 @@ export default {
   font-size: 14px;
 }
 .item-info{
-  color: rgba(255, 0, 180,0.6);
+  color: #ff9f9f;
 }
 .subTitle-info {
   font-size: 20px;
